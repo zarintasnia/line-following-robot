@@ -1,0 +1,43 @@
+sprite = Sprite('Tobi')
+quarky = Quarky()
+
+# User Defined Functions
+def LED_Feedback():
+  if quarky.getirstate("IRL"):
+    quarky.setled(1, 1, [42, 255, 0], 100)
+
+  else:
+    pass
+    quarky.setled(1, 1, [255, 0, 0], 100)
+
+  if quarky.getirstate("IRR"):
+    quarky.setled(7, 1, [42, 255, 0], 100)
+
+  else:
+    pass
+    quarky.setled(7, 1, [255, 0, 0], 100)
+
+
+quarky.setirthreshold("IRL", 3000)
+quarky.setirthreshold("IRR", 3000)
+
+while True:
+  LED_Feedback()
+  if (quarky.getirstate("IRL") and quarky.getirstate("IRR")):
+    quarky.stoprobot()
+
+  else:
+    pass
+    if quarky.getirstate("IRL"):
+      quarky.runmotor("R", "FORWARD", 40)
+      quarky.runmotor("L", "BACKWARD", 25)
+
+    else:
+      pass
+      if quarky.getirstate("IRR"):
+        quarky.runmotor("L", "FORWARD", 40)
+        quarky.runmotor("R", "BACKWARD", 25)
+
+      else:
+        pass
+        quarky.runrobot("FORWARD", 40)
